@@ -1,5 +1,5 @@
 {
-  "name": "template",
+  "name": "@raydeck/serverless-appsync-builder",
   "private": true,
   "version": "1.0.0",
   "description": "",
@@ -14,17 +14,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rhdeck/base.git"
+    "url": "git+https://github.com/rhdeck/serverless-appsync-builder.git"
   },
   "author": "Ray Deck",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rhdeck/base/issues"
+    "url": "https://github.com/rhdeck/serverless-appsync-builder/issues"
   },
-  "homepage": "https://github.com/rhdeck/base#readme",
+  "homepage": "https://github.com/rhdeck/serverless-appsync-builder#readme",
   "devDependencies": {
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
+    "@raydeck/livelink": "^1.5.2",
+    "@types/mustache": "^4.0.1",
     "@types/node": "^14.0.27",
     "commanderdoc": "^0.1.4",
     "concat-md": "^0.3.5",
@@ -40,6 +42,12 @@
   ],
   "dependencies": {
     "commander": "^6.0.0",
-    "install-peers-cli": "^2.2.0"
+    "install-peers-cli": "^2.2.0",
+    "mustache": "^4.0.1"
+  },
+  "liveLink": {
+    "ignoreMasks": [
+      "lib/*"
+    ]
   }
 }
