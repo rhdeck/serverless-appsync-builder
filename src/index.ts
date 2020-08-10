@@ -7,41 +7,69 @@ import {
 } from "fs";
 import { join, resolve, dirname } from "path";
 import mustache from "mustache";
-export function makeFieldResolver<T>(args: {
+import prettier from "prettier";
+export interface FieldResolverOutput<T> {
   type?: string;
   field?: string;
-  func: (args: T) => Promise<any>;
-}) {
-  return {
-    appSyncResolver: "appsync",
-    type: args.type,
-    field: args.field,
-    func: args.func,
-  };
+  func: (o: { args: T }) => Promise<any>;
+  appSyncResolver: string;
 }
-export function makeQueryResolver<T>(args: {
-  field?: string;
-  func: (args: T) => Promise<any>;
-}) {
-  return {
-    appSyncResolver: "appsync",
-    type: "Query",
-    field: args.field,
-    func: args.func,
-  };
+export function makeFieldResolver<T>(
+  argsOrFunc:
+    | {
+        type?: string;
+        field?: string;
+        func: (o: { args: T }) => Promise<any>;
+      }
+    | ((o: { args: T }) => Promise<any>)
+): FieldResolverOutput<T> {
+  if (typeof argsOrFunc === "function")
+    return { appSyncResolver: "appSync", func: argsOrFunc };
+  else
+    return {
+      appSyncResolver: "appSync",
+      type: argsOrFunc.type,
+      field: argsOrFunc.field,
+      func: argsOrFunc.func,
+    };
 }
-export function makeMutationResolver<T>(args: {
-  field?: string;
-  func: (args: T) => Promise<any>;
-}) {
-  return {
-    appSyncResolver: "appsync",
-    type: "Mutation",
-    field: args.field,
-    func: args.func,
-  };
+export function makeQueryResolver<T>(
+  argsOrFunc:
+    | {
+        field?: string;
+        func: (o: { args: T }) => Promise<any>;
+      }
+    | ((o: { args: T }) => Promise<any>)
+): FieldResolverOutput<T> {
+  if (typeof argsOrFunc === "function")
+    return { appSyncResolver: "appSync", type: "Query", func: argsOrFunc };
+  else
+    return {
+      appSyncResolver: "appSync",
+      type: "Query",
+      field: argsOrFunc.field,
+      func: argsOrFunc.func,
+    };
 }
-interface AppsyncResolverWrapper {
+export function makeMutationResolver<T>(
+  argsOrFunc:
+    | {
+        field?: string;
+        func: (o: { args: T }) => Promise<any>;
+      }
+    | ((o: { args: T }) => Promise<any>)
+): FieldResolverOutput<T> {
+  if (typeof argsOrFunc === "function")
+    return { appSyncResolver: "appSync", type: "Mutation", func: argsOrFunc };
+  else
+    return {
+      appSyncResolver: "appSync",
+      type: "Mutation",
+      field: argsOrFunc.field,
+      func: argsOrFunc.func,
+    };
+}
+export interface AppsyncResolverWrapper {
   type: string;
   field: string;
   func: (args: any) => Promise<any>;
@@ -50,13 +78,15 @@ interface AppsyncResolverWrapper {
 interface AppsyncResolverWrapperFile extends AppsyncResolverWrapper {
   path: string;
 }
-export function inspect(path: string) {
-  const exports = <{ [key: string]: { appSyncResolver: string } }>require(path);
+export function inspect(exports: {
+  [key: string]: { appSyncResolver: string };
+}) {
   const appSyncResolvers = Object.entries(exports)
     .map(([key, value]) => {
       try {
-        if (value.appSyncResolver === "appsync") {
+        if (value.appSyncResolver === "appSync") {
           //inspect for elements
+          console.log("key is ", key);
           const lambda: AppsyncResolverWrapper = <any>{
             key,
             type: "",
@@ -77,14 +107,16 @@ export function inspect(path: string) {
             //we should fix this
             lambda.field = key;
           }
+          console.log("returning", lambda);
           return lambda;
         }
       } catch (e) {
+        console.log(e);
         return;
       }
     })
     .filter(Boolean);
-  return appSyncResolvers;
+  return <AppsyncResolverWrapper[]>appSyncResolvers;
 }
 export function flatten(
   paths: { path: string; resolver: AppsyncResolverWrapper }[]
@@ -95,8 +127,8 @@ export function findTemplate(filename: string, currentPath = process.cwd()) {
   //Look first in process.cwd/templates and then in __dirname/templates
   if (existsSync(join(currentPath, "templates", filename))) {
     return join(currentPath, "templates", filename);
-  } else if (existsSync(join(__dirname, "templates", filename))) {
-    return join(__dirname, "templates", filename);
+  } else if (existsSync(join(__dirname, "..", "templates", filename))) {
+    return join(__dirname, "..", "templates", filename);
   } else {
     throw new Error("Could not find template " + filename);
   }
@@ -122,7 +154,7 @@ function makeMappingTemplate(
         encoding: "utf-8",
       }),
       {
-        func: [template.type, template.field].join("_"),
+        functionName: [template.type, template.field].join("_"),
       }
     )
   );
@@ -145,43 +177,54 @@ export function makeMappingTemplates(
   );
 }
 export function makeAppsyncImports(
-  resolvers: AppsyncResolverWrapperFile[],
-  wrapperPath = "./handlers_wrapper.ts"
+  resolvers: [string, AppsyncResolverWrapper[]][]
 ) {
-  const dircontext = dirname(wrapperPath);
   return (
     "import { isArray as __appsync_isArray} from 'util';\n" +
+    "import { withBatch } from '@raydeck/session-manager';\n" +
     resolvers
-      .map(({ key, path, type, field }) => {
-        const resolvedPath = resolve(dircontext, path);
-        return `import { ${key} as ${type}_${field} from "${resolvedPath}";`;
-      })
+      .flatMap(([path, resolvers]) =>
+        resolvers.map(({ key, type, field }) => {
+          return `import { ${key} as ${type}_${field}} from "${path}";`;
+        })
+      )
       .join("\n")
   );
 }
 export function makeAppsyncLambda(
-  resolvers: AppsyncResolverWrapper[],
-  wrapperFunction: string | undefined
+  resolvers: [string, AppsyncResolverWrapper[]][]
 ) {
   if (!resolvers.length) return "";
   const lines = [
-    "const resolvers = {;",
-    ...resolvers.map(({ key }) => `${key},`),
+    "const resolvers: { [key: string]:(...args:any)=>Promise<any>} = {",
+    ...resolvers.flatMap(([path, resolvers]) =>
+      resolvers.map(({ key, type, field }) => `${key}: ${type}_${field}.func,`)
+    ),
     "};",
   ];
-  if (wrapperFunction)
-    lines.push(
-      `export const appsyncResolver = ${wrapperFunction}(async (a: { func: string, isBatch?: boolean},b,c)=>{`
-    );
-  else lines.push(`export async function appSyncResolver {`);
-  lines.push("const toRun = resolvers[func];");
+  lines.push(
+    `export const appSyncResolver = {
+        lambdaType: "lambda", func: async (a: { func: string, isBatch?: boolean},b?:any,c?:any)=>{`
+  );
+  lines.push("const toRun = resolvers[a.func];");
   lines.push(`if (__appsync_isArray(a)) {
       return withBatch(async(a,b,c)=> toRun(a,b,c))(a,b,c);
   } else {
       return toRun(a,b,c)
   }`);
-  if (wrapperFunction) lines.push(`});`);
-  else lines.push("}");
+
+  lines.push("}");
+  lines.push("}");
+  //   lines.push("export default appSyncResolver");
+  return lines.join("\n");
+}
+export function makeAppSyncText(
+  resolvers: [string, AppsyncResolverWrapper[]][]
+) {
+  const imports = makeAppsyncImports(resolvers);
+  const func = makeAppsyncLambda(resolvers);
+  //   return [imports, func].join("\n");
+  return prettier.format([imports, func].join("\n"), { parser: "typescript" });
 }
 export async function withBatch(
   f: (event: { [key: string]: any }, ctx?: any, cb?: any) => Promise<any>
@@ -240,5 +283,40 @@ export async function resolveCursor<
   return {
     edges,
     pageInfo: { hasNextPage, hasPreviousPage, firstCursor, lastCursor },
+  };
+}
+export async function resolveBoolean(value: boolean) {
+  return value;
+}
+export function buildServerlessAppsync(
+  resolvers: [string, AppsyncResolverWrapper[]][]
+) {
+  if (!resolvers.length) return {};
+  return {
+    dataSources: [
+      {
+        name: "lambdaAppSyncResolver",
+        type: "AWS_LAMBDA",
+        config: {
+          serviceRoleArn: { "Fn::GetAtt": ["MainRole", "Arn"] },
+          lambdaFunctionArn: {
+            "Fn::GetAtt": ["AppSyncResolverLambdaFunction", "Arn"],
+          },
+        },
+      },
+    ],
+    mappingTemplates: [
+      resolvers.flatMap(([path, resolvers]) =>
+        resolvers.map((resolver) => ({
+          dataSource: "lambdaAppSyncResolver",
+          type: resolver.type,
+          field: resolver.field,
+          request: [resolver.type, resolver.field, "requestmap.txt"].join("_"),
+          response: ["Query", "Mutation"].includes(resolver.type)
+            ? "default-result-mapping-template.txt"
+            : "default-batch-result-mapping-template.txt",
+        }))
+      ),
+    ],
   };
 }

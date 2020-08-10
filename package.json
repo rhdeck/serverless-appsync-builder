@@ -8,8 +8,8 @@
   "scripts": {
     "pre-commit": "(git-branch-is --not main || (set -u && echo $ALLOWMAIN)) && yarn test",
     "test": "tsc --noEmit",
-    "build": "tsc",
-    "docs": "typedoc --theme markdown --readme none --mode file --excludeNotExported --includeVersion --out docstemp && commanderdoc markdown lib/bin.js -o docstemp/__cli.md --cli-name `npx jq -r .name package.json` && rm README.md ; concat-md docstemp > README.md && rm -rf docstemp",
+    "build": "tsc && chmod +x lib/bin.js && yarn pack -f package.tgz",
+    "docs": "typedoc --theme markdown --readme none --mode file --excludeNotExported --includeVersion --out docstemp && commanderdoc markdown lib/bin.js -o docstemp/__cli.md --cli-name `npx jq -r .name package.json` && rm README.md ; mv docstemp/README.md docstemp/_library.md && concat-md docstemp > README.md && rm -rf docstemp",
     "prepublishOnly": "yarn build && yarn docs && git commit README.md -m \"docs: updating docs\" && git push"
   },
   "repository": {
@@ -38,16 +38,23 @@
   },
   "files": [
     "src",
-    "lib"
+    "lib",
+    "templates"
   ],
   "dependencies": {
+    "@types/prettier": "^2.0.2",
     "commander": "^6.0.0",
     "install-peers-cli": "^2.2.0",
-    "mustache": "^4.0.1"
+    "mustache": "^4.0.1",
+    "prettier": "^2.0.5",
+    "yaml": "^1.10.0"
   },
   "liveLink": {
     "ignoreMasks": [
       "lib/*"
     ]
+  },
+  "peerDependencies": {
+    "@raydeck/session-manager": "^1.4.0"
   }
 }
