@@ -196,7 +196,7 @@ export function makeAppsyncLambda(
 ) {
   if (!resolvers.length) return "";
   const lines = [
-    "const resolvers: { [key: string]:(...args:any)=>Promise<any>} = {",
+    "export const resolvers: { [key: string]:(...args:any)=>Promise<any>} = {",
     ...resolvers.flatMap(([path, resolvers]) =>
       resolvers.map(({ key, type, field }) => `${key}: ${type}_${field}.func,`)
     ),
@@ -215,7 +215,7 @@ export function makeAppsyncLambda(
 
   lines.push("}");
   lines.push("}");
-  //   lines.push("export default appSyncResolver");
+  lines.push("export default resolvers");
   return lines.join("\n");
 }
 export function makeAppSyncText(
@@ -305,8 +305,8 @@ export function buildServerlessAppsync(
         },
       },
     ],
-    mappingTemplates: [
-      resolvers.flatMap(([path, resolvers]) =>
+    mappingTemplates: resolvers
+      .map(([path, resolvers]) =>
         resolvers.map((resolver) => ({
           dataSource: "lambdaAppSyncResolver",
           type: resolver.type,
@@ -316,7 +316,7 @@ export function buildServerlessAppsync(
             ? "default-result-mapping-template.txt"
             : "default-batch-result-mapping-template.txt",
         }))
-      ),
-    ],
+      )
+      .flat(),
   };
 }

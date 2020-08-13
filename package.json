@@ -1,8 +1,7 @@
 {
   "name": "@raydeck/serverless-appsync-builder",
-  "private": true,
   "version": "1.0.1",
-  "description": "",
+  "description": "Build unified appsync resolvers with raydeck/serverless framework",
   "main": "lib/index.js",
   "bin": "lib/bin.js",
   "scripts": {

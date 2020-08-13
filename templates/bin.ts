@@ -9,7 +9,8 @@ import {
   buildServerlessAppsync,
   inspect as _inspect,
 } from "@raydeck/serverless-appsync-builder";
-import yaml from "yaml";
+import yaml, { scalarOptions } from "yaml";
+import { strOptions } from "yaml/types";
 /**
  * Get the path to a node dependency, traversing up the tree as expected
  * @internal
@@ -73,7 +74,7 @@ commander
   .option(
     "-o --output <outputfile>",
     "Output to write to",
-    "./appsync_wrapper.ts"
+    "./_appsync_wrapper.ts"
   )
   .action(({ output }) => {
     const lambdaObj = extractAppsync(commander.workingPath);
@@ -85,8 +86,13 @@ commander
 commander
   .command("serverless")
   .description("Update serverless.yml with functions")
-  .option("-y --yamlfile", "Path to serverless.yml file", "./serverless.yml")
-  .action(({ yamlfile }) => {
+  .option(
+    "-y --yamlfile <path>",
+    "Path to serverless.yml file",
+    "./serverless.yml"
+  )
+  .option("-a --add-function", "Add serverless-specific function", false)
+  .action(({ yamlfile, addFunction }) => {
     const lambdaObj = extractAppsync(commander.workingPath);
     makeMappingTemplates(lambdaObj.flatMap(([path, resolvers]) => resolvers));
     const oldString = readFileSync(yamlfile, { encoding: "utf-8" });
@@ -95,6 +101,8 @@ commander
       ...y.custom.appsync,
       ...buildServerlessAppsync(lambdaObj),
     };
+    /* @ts-ignore */
+    strOptions.defaultType = "QUOTE_DOUBLE";
     const newString = yaml.stringify(y);
     if (newString !== oldString) writeFileSync(yamlfile, newString);
   });
