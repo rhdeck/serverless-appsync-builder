@@ -198,7 +198,9 @@ export function makeAppsyncLambda(
   const lines = [
     "export const resolvers: { [key: string]:(...args:any)=>Promise<any>} = {",
     ...resolvers.flatMap(([path, resolvers]) =>
-      resolvers.map(({ key, type, field }) => `${key}: ${type}_${field}.func,`)
+      resolvers.map(
+        ({ key, type, field }) => `${type}_${field}: ${type}_${field}.func,`
+      )
     ),
     "};",
   ];
