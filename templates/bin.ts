@@ -9,7 +9,7 @@ import {
   buildServerlessAppsync,
   inspect as _inspect,
 } from "@raydeck/serverless-appsync-builder";
-import yaml, { scalarOptions } from "yaml";
+import yaml from "yaml";
 import { strOptions } from "yaml/types";
 /**
  * Get the path to a node dependency, traversing up the tree as expected
@@ -97,8 +97,8 @@ commander
     makeMappingTemplates(lambdaObj.flatMap(([path, resolvers]) => resolvers));
     const oldString = readFileSync(yamlfile, { encoding: "utf-8" });
     const y = yaml.parse(oldString);
-    y.custom.appsync = {
-      ...y.custom.appsync,
+    y.custom.appSync = {
+      ...y.custom.appSync,
       ...buildServerlessAppsync(lambdaObj),
     };
     /* @ts-ignore */
