@@ -50,7 +50,8 @@
   },
   "liveLink": {
     "ignoreMasks": [
-      "lib/*"
+      "lib/*",
+      "package.tgz"
     ]
   },
   "peerDependencies": {
