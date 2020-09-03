@@ -38,7 +38,8 @@
   "files": [
     "src",
     "lib",
-    "templates"
+    "templates",
+    "schemas"
   ],
   "dependencies": {
     "@types/prettier": "^2.0.2",
