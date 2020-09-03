@@ -1,0 +1,27 @@
+# All types that are treatable as nodes to fit into an edge
+union Node
+# Relay-type edge
+interface Edge {
+  # Unique identifier for this node
+  cursor: String!
+  # Data record
+  node: Node
+}
+# Relay-type page information collection
+type PageInfo {
+  # Whether there is a page after this one
+  hasNextPage: Boolean!
+  # Whether there is a page before this one (not reliable)
+  hasPreviousPage: Boolean!
+  # First cursor in this set (potentially used for getting previous page)
+  firstCursor: String
+  # Last cursor in this set (used for getting next page)
+  endCursor: String
+}
+# Relay-type page of information
+interface Cursor {
+  # Data in the page
+  edges: [Edge]
+  # Collection of metadata about this page, used for further pagination
+  pageInfo: PageInfo!
+}

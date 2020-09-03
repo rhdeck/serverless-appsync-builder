@@ -1,0 +1,27 @@
+# Validated URL
+# defined in https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html
+scalar AWSURL
+# Validated email address
+# defined in https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html
+scalar AWSEmail
+# Validated ISO 8601 Date/Time Stamp
+# defined in https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html
+scalar AWSDateTime
+# Validated ISO 8601 Date Stamp
+# defined in https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html
+scalar AWSDate
+# Validated ISO 8601 Time Stamp
+# defined in https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html
+scalar AWSTime
+# Validated IPv4 Address
+# defined in https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html
+scalar AWSIPAddress
+# Validated JSON
+# defined in https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html
+scalar AWSJSON
+# Validated ID String
+# defined in https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html
+scalar ID
+# Validated Phone Number
+# defined in https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html
+scalar AWSPhone
