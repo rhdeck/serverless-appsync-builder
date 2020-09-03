@@ -35,9 +35,9 @@ Update serverless with appsync function reference
 
 <a name="_librarymd"></a>
 
-[@raydeck/serverless-appsync-builder - v1.0.4](README.md)
+[@raydeck/serverless-appsync-builder - v1.0.5](README.md)
 
-# @raydeck/serverless-appsync-builder - v1.0.4
+# @raydeck/serverless-appsync-builder - v1.0.5
 
 ## Index
 
@@ -71,7 +71,7 @@ Update serverless with appsync function reference
 
 ▸ **buildServerlessAppsync**(`resolvers`: [string, [AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd)[]][]): *object | object*
 
-*Defined in [index.ts:293](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L293)*
+*Defined in [index.ts:293](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L293)*
 
 **Parameters:**
 
@@ -87,7 +87,7 @@ ___
 
 ▸ **findTemplate**(`filename`: string, `currentPath`: string): *string*
 
-*Defined in [index.ts:126](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L126)*
+*Defined in [index.ts:126](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L126)*
 
 **Parameters:**
 
@@ -104,7 +104,7 @@ ___
 
 ▸ **flatten**(`paths`: object[]): *[AppsyncResolverWrapperFile](#interfacesappsyncresolverwrapperfilemd)[]*
 
-*Defined in [index.ts:121](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L121)*
+*Defined in [index.ts:121](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L121)*
 
 **Parameters:**
 
@@ -120,7 +120,7 @@ ___
 
 ▸ **inspect**(`exports`: object): *[AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd)[]*
 
-*Defined in [index.ts:81](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L81)*
+*Defined in [index.ts:81](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L81)*
 
 **Parameters:**
 
@@ -136,7 +136,7 @@ ___
 
 ▸ **makeAppSyncText**(`resolvers`: [string, [AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd)[]][]): *string*
 
-*Defined in [index.ts:223](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L223)*
+*Defined in [index.ts:223](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L223)*
 
 **Parameters:**
 
@@ -152,7 +152,7 @@ ___
 
 ▸ **makeAppsyncImports**(`resolvers`: [string, [AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd)[]][]): *string*
 
-*Defined in [index.ts:179](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L179)*
+*Defined in [index.ts:179](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L179)*
 
 **Parameters:**
 
@@ -168,7 +168,7 @@ ___
 
 ▸ **makeAppsyncLambda**(`resolvers`: [string, [AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd)[]][]): *string*
 
-*Defined in [index.ts:194](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L194)*
+*Defined in [index.ts:194](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L194)*
 
 **Parameters:**
 
@@ -184,7 +184,7 @@ ___
 
 ▸ **makeFieldResolver**‹**T**›(`argsOrFunc`: object | function): *[FieldResolverOutput](#interfacesfieldresolveroutputmd)‹T›*
 
-*Defined in [index.ts:17](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L17)*
+*Defined in [index.ts:17](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L17)*
 
 **Type parameters:**
 
@@ -204,7 +204,7 @@ ___
 
 ▸ **makeMappingTemplate**(`template`: [AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd), `mappingTemplatesPath`: string, `path`: string): *void*
 
-*Defined in [index.ts:136](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L136)*
+*Defined in [index.ts:136](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L136)*
 
 **Parameters:**
 
@@ -222,7 +222,7 @@ ___
 
 ▸ **makeMappingTemplates**(`resolvers`: [AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd)[], `mappingTemplatesPath`: string, `path`: string): *void*
 
-*Defined in [index.ts:162](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L162)*
+*Defined in [index.ts:162](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L162)*
 
 **Parameters:**
 
@@ -240,7 +240,7 @@ ___
 
 ▸ **makeMutationResolver**‹**T**›(`argsOrFunc`: object | function): *[FieldResolverOutput](#interfacesfieldresolveroutputmd)‹T›*
 
-*Defined in [index.ts:54](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L54)*
+*Defined in [index.ts:54](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L54)*
 
 **Type parameters:**
 
@@ -260,7 +260,7 @@ ___
 
 ▸ **makeQueryResolver**‹**T**›(`argsOrFunc`: object | function): *[FieldResolverOutput](#interfacesfieldresolveroutputmd)‹T›*
 
-*Defined in [index.ts:36](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L36)*
+*Defined in [index.ts:36](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L36)*
 
 **Type parameters:**
 
@@ -280,7 +280,7 @@ ___
 
 ▸ **resolveBoolean**(`value`: boolean): *Promise‹boolean›*
 
-*Defined in [index.ts:290](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L290)*
+*Defined in [index.ts:290](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L290)*
 
 **Parameters:**
 
@@ -296,7 +296,7 @@ ___
 
 ▸ **resolveCursor**‹**ResolverFunc**›(`arr`: any[], `resolver`: ResolverFunc, `lastCursor?`: undefined | string, `hasNextPage`: boolean, `firstCursor?`: undefined | string, `hasPreviousPage`: boolean): *Promise‹object›*
 
-*Defined in [index.ts:264](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L264)*
+*Defined in [index.ts:264](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L264)*
 
 **Type parameters:**
 
@@ -321,7 +321,7 @@ ___
 
 ▸ **withBatch**(`f`: function): *Promise‹(Anonymous function)›*
 
-*Defined in [index.ts:231](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L231)*
+*Defined in [index.ts:231](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L231)*
 
 **Parameters:**
 
@@ -342,7 +342,7 @@ Name | Type |
 
 <a name="interfacesappsyncresolverwrappermd"></a>
 
-[@raydeck/serverless-appsync-builder - v1.0.4](../README.md) › [AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd)
+[@raydeck/serverless-appsync-builder - v1.0.5](../README.md) › [AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd)
 
 # Interface: AppsyncResolverWrapper
 
@@ -367,7 +367,7 @@ Name | Type |
 
 • **field**: *string*
 
-*Defined in [index.ts:74](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L74)*
+*Defined in [index.ts:74](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L74)*
 
 ___
 
@@ -375,7 +375,7 @@ ___
 
 • **func**: *function*
 
-*Defined in [index.ts:75](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L75)*
+*Defined in [index.ts:75](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L75)*
 
 #### Type declaration:
 
@@ -393,7 +393,7 @@ ___
 
 • **key**: *string*
 
-*Defined in [index.ts:76](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L76)*
+*Defined in [index.ts:76](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L76)*
 
 ___
 
@@ -401,12 +401,12 @@ ___
 
 • **type**: *string*
 
-*Defined in [index.ts:73](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L73)*
+*Defined in [index.ts:73](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L73)*
 
 
 <a name="interfacesappsyncresolverwrapperfilemd"></a>
 
-[@raydeck/serverless-appsync-builder - v1.0.4](../README.md) › [AppsyncResolverWrapperFile](#interfacesappsyncresolverwrapperfilemd)
+[@raydeck/serverless-appsync-builder - v1.0.5](../README.md) › [AppsyncResolverWrapperFile](#interfacesappsyncresolverwrapperfilemd)
 
 # Interface: AppsyncResolverWrapperFile
 
@@ -434,7 +434,7 @@ ___
 
 *Inherited from [AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd).[field](#field)*
 
-*Defined in [index.ts:74](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L74)*
+*Defined in [index.ts:74](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L74)*
 
 ___
 
@@ -444,7 +444,7 @@ ___
 
 *Inherited from [AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd).[func](#func)*
 
-*Defined in [index.ts:75](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L75)*
+*Defined in [index.ts:75](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L75)*
 
 #### Type declaration:
 
@@ -464,7 +464,7 @@ ___
 
 *Inherited from [AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd).[key](#key)*
 
-*Defined in [index.ts:76](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L76)*
+*Defined in [index.ts:76](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L76)*
 
 ___
 
@@ -472,7 +472,7 @@ ___
 
 • **path**: *string*
 
-*Defined in [index.ts:79](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L79)*
+*Defined in [index.ts:79](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L79)*
 
 ___
 
@@ -482,12 +482,12 @@ ___
 
 *Inherited from [AppsyncResolverWrapper](#interfacesappsyncresolverwrappermd).[type](#type)*
 
-*Defined in [index.ts:73](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L73)*
+*Defined in [index.ts:73](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L73)*
 
 
 <a name="interfacesfieldresolveroutputmd"></a>
 
-[@raydeck/serverless-appsync-builder - v1.0.4](../README.md) › [FieldResolverOutput](#interfacesfieldresolveroutputmd)
+[@raydeck/serverless-appsync-builder - v1.0.5](../README.md) › [FieldResolverOutput](#interfacesfieldresolveroutputmd)
 
 # Interface: FieldResolverOutput ‹**T**›
 
@@ -514,7 +514,7 @@ ___
 
 • **appSyncResolver**: *string*
 
-*Defined in [index.ts:15](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L15)*
+*Defined in [index.ts:15](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L15)*
 
 ___
 
@@ -522,7 +522,7 @@ ___
 
 • **field**? : *undefined | string*
 
-*Defined in [index.ts:13](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L13)*
+*Defined in [index.ts:13](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L13)*
 
 ___
 
@@ -530,7 +530,7 @@ ___
 
 • **func**: *function*
 
-*Defined in [index.ts:14](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L14)*
+*Defined in [index.ts:14](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L14)*
 
 #### Type declaration:
 
@@ -550,4 +550,4 @@ ___
 
 • **type**? : *undefined | string*
 
-*Defined in [index.ts:12](https://github.com/rhdeck/serverless-appsync-builder/blob/051feb4/src/index.ts#L12)*
+*Defined in [index.ts:12](https://github.com/rhdeck/serverless-appsync-builder/blob/ccd4bca/src/index.ts#L12)*
