@@ -86,7 +86,6 @@ export function inspect(exports: {
       try {
         if (value.appSyncResolver === "appSync") {
           //inspect for elements
-          console.log("key is ", key);
           const lambda: AppsyncResolverWrapper = <any>{
             key,
             type: "",
@@ -107,11 +106,11 @@ export function inspect(exports: {
             //we should fix this
             lambda.field = key;
           }
-          console.log("returning", lambda);
+
           return lambda;
         }
       } catch (e) {
-        console.log(e);
+        console.error(e);
         return;
       }
     })

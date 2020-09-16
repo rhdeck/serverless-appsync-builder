@@ -51,7 +51,6 @@ commander
     "./serverless.yml"
   )
   .action(({ yamlfile }) => {
-    console.log({ yamlfile });
     const oldString = readFileSync(yamlfile, { encoding: "utf-8" });
     const y = yaml.parse(oldString);
     if (!y.functions)
