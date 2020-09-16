@@ -95,9 +95,9 @@ export function inspect(exports: {
           if (!lambda.type) {
             if (/^get[A-Z][A-Za-z]*[For][get[A-Z][A-Za-z]*$/.test(key)) {
               //extract
-              const afterGet = key.substring(4);
-              const forPos = key.indexOf("For");
-              lambda.type = afterGet.substring(0, forPos - 1);
+              const afterGet = key.substring(3);
+              const forPos = afterGet.indexOf("For");
+              lambda.type = afterGet.substring(0, forPos);
               lambda.field = afterGet.substring(forPos + 3);
             } else {
               return;
