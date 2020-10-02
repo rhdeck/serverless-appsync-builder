@@ -97,8 +97,8 @@ export function inspect(exports: {
               //extract
               const afterGet = key.substring(3);
               const forPos = afterGet.indexOf("For");
-              lambda.type = afterGet.substring(0, forPos);
-              lambda.field = afterGet.substring(forPos + 3);
+              lambda.field = afterGet.substring(0, forPos).toLowerCase();
+              lambda.type = afterGet.substring(forPos + 3);
             } else {
               return;
             }
@@ -179,7 +179,6 @@ export function makeAppsyncImports(
   resolvers: [string, AppsyncResolverWrapper[]][]
 ) {
   return (
-    "import { isArray as __appsync_isArray} from 'util';\n" +
     "import { withBatch } from '@raydeck/session-manager';\n" +
     resolvers
       .flatMap(([path, resolvers]) =>
@@ -208,7 +207,7 @@ export function makeAppsyncLambda(
         lambdaType: "lambda", func: async (a: { func: string, isBatch?: boolean},b?:any,c?:any)=>{`
   );
   lines.push("const toRun = resolvers[a.func];");
-  lines.push(`if (__appsync_isArray(a)) {
+  lines.push(`if (Array.isArray(a)) {
       return withBatch(async(a,b,c)=> toRun(a,b,c))(a,b,c);
   } else {
       return toRun(a,b,c)
