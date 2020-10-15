@@ -5,7 +5,7 @@ interface Edge {
   # Unique identifier for this node
   cursor: String!
   # Data record
-  node: Node
+  node: Node!
 }
 # Relay-type page information collection
 type PageInfo {
